@@ -46,8 +46,7 @@ Trong Go để giải quyết vấn đề này có nhiều giải pháp và mìn
 Nhiệm vụ này có thể cài đặt như sau:   
 main.go
 
-
-```golang
+{% highlight golang %}
 //n là số goroutine đồng thời
 //m là số lần truy cập và biến dùng chung của 1 goroutine
 package main
@@ -86,7 +85,7 @@ func main() {
 	t := time.Since(start)
 	fmt.Printf("time : %v", t)
 }
-```    
+{% endhighlight %}
 
 Ở đây biến ```sum``` là biến dùng chung của các goroutine cần phải tránh truy cập đồng thời khi chạy thử bằng lệnh   
 
