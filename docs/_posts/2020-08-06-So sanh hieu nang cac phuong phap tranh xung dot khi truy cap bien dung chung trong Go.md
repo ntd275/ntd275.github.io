@@ -1,3 +1,9 @@
+---
+layout: post
+title:  "So sánh hiệu năng các phương pháp tránh xung đột khi truy cập biến dùng chung trong Go"
+date:   2020-08-06 11:18:20 +0700
+categories: golang
+---
 # So sánh hiệu năng các phương pháp tránh xung đột khi truy cập biến dùng chung trong Go
 Khi lập trình song song, các luồng hoạt động cùng lúc có thể phải truy cập vào các biến dùng chung. Ta cần đảm bảo tại một thời điểm chỉ có duy nhất một luông truy cập vào biến đó nếu không sẽ xảy ra xung đột, chương trình sẽ trả về kết quả sai   
 
@@ -46,9 +52,7 @@ Trong Go để giải quyết vấn đề này có nhiều giải pháp và mìn
 Nhiệm vụ này có thể cài đặt như sau:   
 main.go
 
-{% highlight golang %}
-//n là số goroutine đồng thời
-//m là số lần truy cập và biến dùng chung của 1 goroutine
+```go
 package main
 
 import (
@@ -85,14 +89,14 @@ func main() {
 	t := time.Since(start)
 	fmt.Printf("time : %v", t)
 }
-{% endhighlight %}
+```
 
 Ở đây biến ```sum``` là biến dùng chung của các goroutine cần phải tránh truy cập đồng thời khi chạy thử bằng lệnh   
 
 
 ---
 Sử dụng ```atomic```:    
-```golang
+```go
 //n là số goroutine đồng thời
 //m là số lần truy cập và biến dùng chung của 1 goroutine
 func test(n int, m int) int64 {
@@ -115,7 +119,7 @@ Sử dụng hàm ```atomic.AddInt64(&sum, 1)``` để tăng giá trị của sum
 
 ---
 Sử dụng ```Mutex```:
-```golang
+```go
 //n là số goroutine đồng thời
 //m là số lần truy cập và biến dùng chung của 1 goroutine
 func test(n int, m int) int64 {
@@ -215,5 +219,7 @@ ok      channel 42.383s
 ```
 ### Nhận xét
 - ```atomic``` có tốc độ thực hiện nhanh nhất trung bình khoảng 17.6ms trên một lần chạy
-- ```Mutex``` có tốc độ nhanh thứ hai khoảng 134.4ms trên một lần chạy
-- channel có tốc độ chậm nhất khoảng 496.4ms trên một lần chạy
+- ```Mutex``` có tốc độ nhanh thứ hai khoảng 134.4ms trên một lần chạy gấp hơn 7 lần ```atomic```
+- channel có tốc độ chậm nhất khoảng 496.4ms trên một lần chạy gấp hơn 28 lần ```atomic```
+
+### Lý do vì sao có sự chênh lệch như vậy?
