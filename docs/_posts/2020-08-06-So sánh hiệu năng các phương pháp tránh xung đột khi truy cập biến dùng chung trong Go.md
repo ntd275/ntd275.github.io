@@ -45,6 +45,8 @@ Trong Go để giải quyết vấn đề này có nhiều giải pháp và mìn
 Để test hiệu năng mình sẽ làm một nhiệm vụ đơn giản đó là tăng giá trị của một biến dùng chung bằng nhiều goroutine và so sánh thời gian chạy của các phương pháp sử dụng bằng ```go test```   
 Nhiệm vụ này có thể cài đặt như sau:   
 main.go
+
+
 ```golang
 //n là số goroutine đồng thời
 //m là số lần truy cập và biến dùng chung của 1 goroutine
@@ -85,6 +87,7 @@ func main() {
 	fmt.Printf("time : %v", t)
 }
 ```    
+
 Ở đây biến ```sum``` là biến dùng chung của các goroutine cần phải tránh truy cập đồng thời khi chạy thử bằng lệnh   
 
 
