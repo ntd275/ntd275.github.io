@@ -202,7 +202,7 @@ D:\ducnt59\Go Project\test concurency\mutex>go test -bench=. -benchtime=20s
 goos: windows
 goarch: amd64
 pkg: mutex
-BenchmarkAtomic-4            183         134357411 ns/op
+BenchmarkMutex-4            183         134357411 ns/op
 PASS
 ok      mutex   37.825s
 ```
@@ -213,7 +213,7 @@ D:\ducnt59\Go Project\test concurency\channel>go test -bench=. -benchtime=20s
 goos: windows
 goarch: amd64
 pkg: channel
-BenchmarkAtomic-4             46         496397957 ns/op
+BenchmarkChannel-4             46         496397957 ns/op
 PASS
 ok      channel 42.383s
 ```
